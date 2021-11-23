@@ -28,28 +28,25 @@ num_without_tele = []
 no_received_calls = []
 no_text_msg = []
 
-for row in calls:
-    if row[0].startswith("140"):
-        break
-    num_without_tele.append(row[0])
-num_without_tele = set(num_without_tele)
-
-for num in num_without_tele:
+for num in calls:
     for row in calls:
-        if num == row[1]:
+        if num[0] == row[1]:
             break
-        no_received_calls.append(num)
+    else:
+        no_received_calls.append(num[0])
+# print(no_received_calls)
 no_received_calls = set(no_received_calls)
 
 for num in no_received_calls:
     for row in texts:
         if num == row[0] or num == row[1]:
             break
+    else:
         no_text_msg.append(num)
 no_text_msg = set(no_text_msg)
 
 print("These numbers could be telemarketers: ")      
-for num in no_text_msg:
+for num in sorted(no_text_msg):
     print(num)
 
-#BigO = O(6n^2+4n+7) = O(n^2)
+#BigO = O(8n^2+n*log n+7) = O(n*log n)

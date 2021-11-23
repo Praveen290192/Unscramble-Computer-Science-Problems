@@ -48,7 +48,7 @@ print("There are ",count," different telephone numbers in the records.")
 
 ####################################################################################
 
-#BigO = O(5) = O(1)
+#BigO = O(n+m+5) = O(n+m)
 
 ####################################################################################
 
@@ -64,17 +64,16 @@ September 2016.".
 inverted_calls_list=list(zip(*calls))
 total_list_of_nums = set(inverted_calls_list[0]+inverted_calls_list[1])
 total_call_time = {}
-# print(inverted_calls_list)
-for num in total_list_of_nums:
-    val = 0
-    for i in range(len(calls)):
-        if num in calls[i][0]:
-            total_call_time[num] = val+int(calls[i][3])
-        elif num in calls[i][1]:
-            total_call_time[num] = val+int(calls[i][3])
 
-# for p in total_call_time:
-max_call_time = (max(total_call_time.values()))
+for num in total_list_of_nums:
+    total_call_time[num] = 0
+    for row in calls:
+        if num in row[0]:
+            total_call_time[num]=total_call_time.get(num)+int(row[3])
+        if num in row[1]:
+            total_call_time[num]=total_call_time.get(num)+int(row[3])
+
+max_call_time = max(total_call_time.values())
 
 tel_number=list(total_call_time.keys())[list(total_call_time.values()).index(max_call_time)]
 print(tel_number," spent the longest time, ",max_call_time," seconds, on the phone during September 2016.")
@@ -82,7 +81,7 @@ print(tel_number," spent the longest time, ",max_call_time," seconds, on the pho
 
 ####################################################################################
 
-#BigO = O(5n^2+6)= O(n^2)
+#BigO = O(4*n*m+n+6)= O(n*m)
 
 ####################################################################################
 
@@ -139,7 +138,7 @@ for row in calls:
 
 list_of_code = set(fixed_code+mobile_code+telemarket_code)
 print("The numbers called by people in Bangalore have codes:")
-for code in list_of_code:
+for code in sorted(list_of_code):
   print(code)
 
 percentage = round(100*numerator/denominator,2)
@@ -148,7 +147,7 @@ print(percentage,"percent of calls from fixed lines in Bangalore are calls to ot
 
 ####################################################################################
 
-#BigO = O(11n+9) = O(n)
+#BigO = O(11n + n log n+9) = O(n log n)
 
 ####################################################################################
 
@@ -168,34 +167,30 @@ num_without_tele = []
 no_received_calls = []
 no_text_msg = []
 
-for row in calls:
-    if row[0].startswith("140"):
-        break
-    num_without_tele.append(row[0])
-num_without_tele = set(num_without_tele)
-
-for num in num_without_tele:
+for num in calls:
     for row in calls:
-        if num == row[1]:
+        if num[0] == row[1]:
             break
-        no_received_calls.append(num)
+    else:
+        no_received_calls.append(num[0])
+# print(no_received_calls)
 no_received_calls = set(no_received_calls)
 
 for num in no_received_calls:
     for row in texts:
         if num == row[0] or num == row[1]:
             break
+    else:
         no_text_msg.append(num)
 no_text_msg = set(no_text_msg)
 
 print("These numbers could be telemarketers: ")      
-for num in no_text_msg:
+for num in sorted(no_text_msg):
     print(num)
-
 
 ####################################################################################
 
-#BigO = O(6n^2+4n+7) = O(n^2)
+#BigO = O(8n^2+n*log n+7) = O(n*log n)
 
 ####################################################################################
 

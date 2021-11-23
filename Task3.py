@@ -65,11 +65,11 @@ for row in calls:
 
 list_of_code = set(fixed_code+mobile_code+telemarket_code)
 print("The numbers called by people in Bangalore have codes:")
-for code in list_of_code:
+for code in sorted(list_of_code):
   print(code)
 
 percentage = round(100*numerator/denominator,2)
 print(percentage,"percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
 
-#BigO = O(11n+9) = O(n)
+#BigO = O(11n + n log n+9) = O(n log n)
 

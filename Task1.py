@@ -26,4 +26,4 @@ total_list_of_nums = inverted_text_list[0]+ inverted_text_list[1]+inverted_calls
 count=len(set(total_list_of_nums))
 print("There are ",count," different telephone numbers in the records.")
 
-#BigO = O(5) = O(1)
+#BigO = O(n+m+5) = O(n+m)
